@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/i18n">
+        <file alias="emergit_en_US.qm">emergit_en_US.qm</file>
+        <file alias="emergit_zh_TW.qm">emergit_zh_TW.qm</file>
+    </qresource>
+</RCC>

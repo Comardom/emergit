@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1" language="zh_TW">
 <context>
     <name>MainWindow</name>
     <message>
@@ -36,13 +36,12 @@
     <message>
         <location filename="mainwindow.cpp" line="26"/>
         <source>哇这个好可爱鸭</source>
-        <translatorcomment>1</translatorcomment>
-        <translation type="unfinished">Cute desuyonee</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="26"/>
         <source>按钮被点击了！</source>
-        <translation type="unfinished">click!</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

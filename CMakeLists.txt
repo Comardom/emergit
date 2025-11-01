@@ -1,21 +1,46 @@
 cmake_minimum_required(VERSION 3.19)
 project(emergit LANGUAGES CXX)
 
+# 明确要求使用 C++23 标准
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets LinguistTools)
 
 qt_standard_project_setup()
 
 qt_add_executable(emergit
-    WIN32 MACOSX_BUNDLE
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
+        WIN32 MACOSX_BUNDLE
+        main.cpp
+        mainwindow.cpp
+        mainwindow.h
+        mainwindow.ui
+        app.qrc
 )
+
+# 告诉 lupdate，源代码中 tr() 包裹的文本是 zh_CN (简体中文)。
+# 这样 lupdate 在生成 .ts 文件时，会将 zh_CN 的文本作为源文本。
+# 这是实现“tr包裹简中”的关键。
+set_property(SOURCE
+        main.cpp
+        mainwindow.cpp
+        mainwindow.h
+        mainwindow.ui
+        APPEND PROPERTY
+        QT_TRANSLATION_SOURCE_LANGUAGE "zh_CN"
+)
+
+# set(RESOURCE_FILES app.qrc)
+# qt_add_resources(emergit_RESOURCES ${RESOURCE_FILES})
 
 qt_add_translations(
     TARGETS emergit
-    TS_FILES emergit_en_US.ts
+    TS_FILES
+        emergit_en_US.ts
+        emergit_zh_TW.ts
+        emergit_zh_CN.ts
+        # 关键：指定 .qm 文件的输出目录，以便 QRC 文件能找到它们
+        OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/i18n
 )
 
 target_link_libraries(emergit
