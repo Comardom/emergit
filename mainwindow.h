@@ -32,7 +32,5 @@ private:
     QActionGroup *langActionGroup; // 用于管理菜单项的互斥选择
     // 加载新的翻译文件并触发刷新
     void loadTranslator(const QString &localeName);
-    // 关键：初始化菜单栏的语言切换项
-    // void createLanguageMenu();
 };
 #endif // MAINWINDOW_H

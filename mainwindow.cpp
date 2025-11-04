@@ -11,15 +11,15 @@ MainWindow::MainWindow(QWidget *parent)
     //加载和设置 Designer 创建的界面
     ui->setupUi(this);
 
-    // 1. 【核心修改】分组并连接 Designer 创建的 QAction
+    // 1. 分组并连接 Designer 创建的 QAction
     langActionGroup = new QActionGroup(this);
+    // 设置单选模式
     langActionGroup->setExclusive(true);
-    // 通过 ui->setupUi() 访问 Designer 中的 QAction
     QAction *zhCN = ui->action_zh_CN;
     QAction *zhTW = ui->action_zh_TW;
     QAction *enUS = ui->action_en_US;
     // 将 QAction 加入分组并设置其数据 (Data)
-    // 注意：Designer 无法设置 data，所以我们在这里设置
+    // Designer 无法设置 data，所以在这里设置
     langActionGroup->addAction(zhCN);
     zhCN->setData("zh_CN");
     zhCN->setChecked(true); // 默认选中简体中文
@@ -31,12 +31,12 @@ MainWindow::MainWindow(QWidget *parent)
     enUS->setData("en_US");
 
     // 2. 将分组的触发事件连接到槽函数
-    QObject::connect(langActionGroup, &QActionGroup::triggered, this, &MainWindow::changeLanguage);
+    connect(langActionGroup, &QActionGroup::triggered,
+        this, &MainWindow::changeLanguage);
 
 
     // 在这里放置所有 connect() 调用
-    // 确保连接的控件 (如 ui->myButton) 已经通过 Designer
-    QObject::connect(ui->pushButton,&QPushButton::clicked,
+    connect(ui->pushButton,&QPushButton::clicked,
         this,&MainWindow::do_testButton_clicked);
 
 }
@@ -74,10 +74,11 @@ void MainWindow::loadTranslator(const QString &localeName)
     }
 }
 
-// 【核心函数 2】处理菜单点击，调用加载函数
+// 针对多语言：处理菜单点击，调用加载函数
 void MainWindow::changeLanguage(QAction *action)
 {
-    QString localeName = action->data().toString(); // 获取 QAction 中存储的语言代码 (zh_TW, en_US, zh_CN)
+    // 获取 QAction 中存储的语言代码 (zh_TW, en_US, zh_CN)
+    QString localeName = action->data().toString();
 
     // 加载新的翻译文件
     loadTranslator(localeName);
@@ -88,7 +89,7 @@ void MainWindow::changeLanguage(QAction *action)
     qApp->sendEvent(this, &event);
 }
 
-// 【核心函数 3】重写 changeEvent，确保主窗口的 UI 元素刷新
+// 针对多语言：重写 changeEvent，确保主窗口的 UI 元素刷新
 void MainWindow::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange) {
