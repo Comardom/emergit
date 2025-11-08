@@ -46,15 +46,6 @@
      <height>29</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
-    <property name="title">
-     <string>语言</string>
-    </property>
-    <addaction name="action_zh_CN"/>
-    <addaction name="action_zh_TW"/>
-    <addaction name="action_en_US"/>
-   </widget>
-   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_zh_CN">

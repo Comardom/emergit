@@ -1,36 +1,46 @@
-## [2025-11-03] - 0.1.0-alpha
+其他窗口使用多语言：<br />
+```cpp
+#include "secondwindow.h"
+#include "ui_secondwindow.h"
+#include "LanguageManager.h"
 
-###  更新内容
+SecondWindow::SecondWindow(QWidget *parent) :
+QDialog(parent),
+ui(new Ui::SecondWindow)
+{
+ui->setupUi(this);
 
-* 实现了简中/繁中/英语的菜单热切换
-* 基础地配置了项目结构与CMake
-* 更新了开源协议
+    // 获取 LanguageManager 实例，假设你通过单例或全局对象来管理它
+    LanguageManager *languageManager = qApp->findChild<LanguageManager*>();
 
----
+    // 连接语言切换信号
+    connect(languageManager, &LanguageManager::languageChanged, this, [=]() {
+        QAction *action = languageManager->languageActionGroup()->checkedAction();
+        if (action) {
+            QString localeName = action->data().toString();
+            languageManager->loadTranslator(localeName);
 
-###  目标
+            // 刷新当前窗口的 UI
+            QEvent event(QEvent::LanguageChange);
+            qApp->sendEvent(this, &event);
+        }
+    });
 
-* appImage与avalonia的desktop生成
-* 快捷方式图标切换为某图标包
-* x11/wayland的默认切换
-* 解决*neo*vim的剪贴板问题
-* ASIO/JACK2的全流程安装指导
-* arch/manjaro镜像源调整
-* wayland下fcitx5配置
-* 提取/过滤/安装软件包目录
-* 调整解码器采样率
-* 定时关机
-* 提取/还原KDE配置
-* 某音游谱面播放器
-* 过滤svg文件到html标签
-* 基于ffmpeg的照片拼接与压缩
-* 开机自动挂载磁盘
-* 在线获取推荐网站与软件
-* 在线获取推荐的免费商用字体
-* 求SHA-256和MD5等
-* 连点器（待定）
-* 规范音乐文件命名与详细信息（待定）
-* png/jpg转ico（待定）
-* 在线检查更新与自更新（待定）
-* 提供用户注册登录（不强制登录）
-* 提供反馈与建议（匿名与否不强制）并直接传给服务器
+    // 默认设置语言
+    languageManager->languageActionGroup()->actions().at(0)->setChecked(true);
+}
+
+SecondWindow::~SecondWindow()
+{
+delete ui;
+}
+
+// 重写 changeEvent，以便在语言变更时刷新 UI
+void SecondWindow::changeEvent(QEvent *event)
+{
+if (event->type() == QEvent::LanguageChange) {
+ui->retranslateUi(this);
+}
+QDialog::changeEvent(event);
+}
+```
