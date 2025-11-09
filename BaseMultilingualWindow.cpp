@@ -24,7 +24,7 @@ BaseMultilingualWindow::~BaseMultilingualWindow()
 
 void BaseMultilingualWindow::createLanguageMenu()
 {
-    // 创建一个新的菜单项（如果需要）
+    // 创建一个新的菜单项
     QMenu *langMenu = menuBar()->addMenu(tr("语言"));
 
     // 创建一个 QActionGroup，确保只有一个菜单项被选中
@@ -35,6 +35,11 @@ void BaseMultilingualWindow::createLanguageMenu()
     QAction *zhCN = new QAction(tr("简体中文"), this);
     QAction *zhTW = new QAction(tr("繁體中文"), this);
     QAction *enUS = new QAction(tr("English"), this);
+
+    // 设置可选中
+    zhCN->setCheckable(true);
+    zhTW->setCheckable(true);
+    enUS->setCheckable(true);
 
     // 设置对应语言的标识
     zhCN->setData("zh_CN");
@@ -71,15 +76,19 @@ void BaseMultilingualWindow::loadTranslator(const QString &localeName)
     }
 
     const QString baseName = "emergit_" + localeName;
+    QString qmPath = ":/i18n/" + baseName + ".qm";
 
-    if (appTranslator.load(":/i18n/" + baseName))
+    qDebug() << "Loading translator from:" << qmPath;
+
+    if (appTranslator.load(qmPath))
     {
         qApp->installTranslator(&appTranslator);
+        qDebug() << "Successfully loaded translator for:" << localeName;
     }
     else
     {
-        qDebug() << "Warning: Could not load translator for locale:"
-            << localeName;
+        qDebug() << "Warning: Could not load translator for locale:" << localeName;
+        qDebug() << "Tried path:" << qmPath;
     }
 }
 
@@ -101,7 +110,15 @@ void BaseMultilingualWindow::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange)
     {
+        // 保存当前标题
+        QString currentTitle = windowTitle();
+
         ui->retranslateUi(this); // 重新翻译 UI
+
+        // 如果标题被UI文件覆盖，恢复原来的标题
+        if (windowTitle() == "BaseMultilingualWindow" && currentTitle != "BaseMultilingualWindow") {
+            setWindowTitle(currentTitle);
+        }
     }
 
     QMainWindow::changeEvent(event);

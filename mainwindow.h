@@ -20,7 +20,6 @@ public:
     ~MainWindow() override;
 
 protected:
-    void changeEvent(QEvent *event) override; // 添加这行
 
 private slots:
     void do_testButton_clicked();

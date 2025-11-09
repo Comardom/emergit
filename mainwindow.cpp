@@ -25,11 +25,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::changeEvent(QEvent *event)
-{
-    // 调用基类的changeEvent
-    BaseMultilingualWindow::changeEvent(event);
-}
 
 void MainWindow::do_testButton_clicked()
 {
