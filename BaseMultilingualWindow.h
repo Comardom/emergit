@@ -31,7 +31,7 @@ private slots:
 private:
 	Ui::BaseMultilingualWindow *ui;
 	QTranslator appTranslator; // 用于管理当前加载的翻译器
-	QActionGroup *langActionGroup; // 用于管理菜单项的互斥选择
+	QActionGroup *langActionGroup{}; // 用于管理菜单项的互斥选择
 	void loadTranslator(const QString &localeName);
 };
 

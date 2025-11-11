@@ -6,7 +6,7 @@
     <message>
         <location filename="BaseMultilingualWindow.ui" line="14"/>
         <source>BaseMultilingualWindow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">en</translation>
     </message>
     <message>
         <location filename="BaseMultilingualWindow.cpp" line="28"/>
@@ -34,7 +34,7 @@
     <message>
         <location filename="splash/FirstSplash.ui" line="17"/>
         <source>FirstSplash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">FSen</translation>
     </message>
 </context>
 <context>
@@ -42,12 +42,12 @@
     <message>
         <location filename="mainwindow.ui" line="14"/>
         <source>123</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">en</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="36"/>
         <source>PushButton</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">en</translation>
     </message>
     <message>
         <source>语言</source>

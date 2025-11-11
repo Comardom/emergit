@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
+#include "splash/FirstSplash.h"
 #include <QMessageBox>
 #include <QApplication>
 #include <QActionGroup>
@@ -9,12 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
     : BaseMultilingualWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    // BaseMultilingualWindow();
     //加载和设置 Designer 创建的界面
     ui->setupUi(this);
-    createLanguageMenu(); // 显式调用基类的语言菜单创建方法
-    // 实现无边框（取消边框功能）
-    // this->setWindowFlags(Qt::FramelessWindowHint);
+    // 显式调用基类的语言菜单创建方法
+    createLanguageMenu();
+
     // 在这里放置所有 connect() 调用
     connect(ui->pushButton,&QPushButton::clicked,
         this,&MainWindow::do_testButton_clicked);
@@ -25,6 +26,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange)
+    {
+        // 重新翻译 MainWindow 的 UI
+        ui->retranslateUi(this);
+        qDebug() << "MainWindow language changed";
+    }
+
+    // 调用基类的changeEvent
+    BaseMultilingualWindow::changeEvent(event);
+}
 
 void MainWindow::do_testButton_clicked()
 {

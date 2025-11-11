@@ -13,8 +13,8 @@ BaseMultilingualWindow::BaseMultilingualWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // 创建并添加语言菜单
-    createLanguageMenu();
+    // 创建并添加语言菜单（事实证明这句没用）
+    // createLanguageMenu();
 }
 
 BaseMultilingualWindow::~BaseMultilingualWindow()
@@ -32,9 +32,9 @@ void BaseMultilingualWindow::createLanguageMenu()
     langActionGroup->setExclusive(true);
 
     // 创建语言选择项
-    QAction *zhCN = new QAction(tr("简体中文"), this);
-    QAction *zhTW = new QAction(tr("繁體中文"), this);
-    QAction *enUS = new QAction(tr("English"), this);
+    auto *zhCN = new QAction(tr("简体中文"), this);
+    auto *zhTW = new QAction(tr("繁體中文"), this);
+    auto *enUS = new QAction(tr("English"), this);
 
     // 设置可选中
     zhCN->setCheckable(true);
@@ -116,7 +116,9 @@ void BaseMultilingualWindow::changeEvent(QEvent *event)
         ui->retranslateUi(this); // 重新翻译 UI
 
         // 如果标题被UI文件覆盖，恢复原来的标题
-        if (windowTitle() == "BaseMultilingualWindow" && currentTitle != "BaseMultilingualWindow") {
+        if (windowTitle() == "BaseMultilingualWindow"
+            && currentTitle != "BaseMultilingualWindow")
+        {
             setWindowTitle(currentTitle);
         }
     }
