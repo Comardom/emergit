@@ -11,7 +11,7 @@ createLanguageMenu();
 ```
 并加入函数
 ```
-void MainWindow::changeEvent(QEvent *event)
+void 【类名】::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange)
     {

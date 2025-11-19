@@ -6,26 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>523</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>FirstSplash</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>70</y>
-     <width>221</width>
-     <height>131</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>PushButton</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>

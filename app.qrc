@@ -5,4 +5,8 @@
         <file alias="emergit_zh_TW.qm">emergit_zh_TW.qm</file>
         <file alias="emergit_zh_CN.qm">emergit_zh_CN.qm</file>
     </qresource>
+    <qresource prefix="/img">
+        <file>img/dyingStarUndMaria.bmp</file>
+        <file>img/haizhiyun.jpg</file>
+    </qresource>
 </RCC>

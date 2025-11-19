@@ -13,6 +13,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     //加载和设置 Designer 创建的界面
     ui->setupUi(this);
+
+    // 窗口居中
+    // this->move(QApplication::primaryScreen()->geometry().center() - this->rect().center());
+
     // 显式调用基类的语言菜单创建方法
     createLanguageMenu();
 

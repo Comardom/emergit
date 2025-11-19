@@ -22,6 +22,8 @@ qt_add_executable(emergit
         BaseMultilingualWindow.cpp
         BaseMultilingualWindow.h
         BaseMultilingualWindow.ui
+        splash/FirstSplashThread.cpp
+        splash/FirstSplashThread.h
 )
 
 # 告诉 lupdate，源代码中 tr() 包裹的文本是 zh_CN (简体中文)。
