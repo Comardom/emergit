@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 # 非常重要的编译qrc开关(RCC编译器开关)
 set(CMAKE_AUTORCC ON)
-
+# 版本是Qt6.5, Widget程序，使用多语言
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets LinguistTools)
 
 qt_standard_project_setup()
@@ -18,16 +18,9 @@ qt_add_executable(emergit
         mainwindow.h
         mainwindow.ui
         app.qrc
-        splash/FirstSplash.cpp
-        splash/FirstSplash.h
-        splash/FirstSplash.ui
         BaseMultilingualWindow.cpp
         BaseMultilingualWindow.h
         BaseMultilingualWindow.ui
-        splash/FirstSplashThread.cpp
-        splash/FirstSplashThread.h
-#        img/dyingStarUndMaria.bmp
-#        img/haizhiyun.jpg
 )
 
 # 告诉 lupdate，源代码中 tr() 包裹的文本是 zh_CN (简体中文)。
@@ -42,8 +35,6 @@ set_property(SOURCE
         QT_TRANSLATION_SOURCE_LANGUAGE "zh_CN"
 )
 
-# set(RESOURCE_FILES app.qrc)
-# qt_add_resources(emergit_RESOURCES ${RESOURCE_FILES})
 
 qt_add_translations(
     TARGETS emergit
@@ -51,8 +42,8 @@ qt_add_translations(
         emergit_en_US.ts
         emergit_zh_TW.ts
         emergit_zh_CN.ts
-        # （旧的）关键：指定 .qm 文件的输出目录，以便 QRC 文件能找到它们
-#        OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/i18n
+        # （被废弃的）关键：指定 .qm 文件的输出目录，以便 QRC 文件能找到它们
+        #  OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/i18n
         # 注意：移除了 OUTPUT_DIRECTORY。
         # 让 Qt 自动管理路径，它会自动生成一个包含 .qm 的内部资源文件
         # 并自动将其挂载到 ":/i18n/" 路径下（默认行为）。

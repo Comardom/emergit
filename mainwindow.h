@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QTranslator>
 #include "BaseMultilingualWindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -11,7 +9,7 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-class MainWindow : public BaseMultilingualWindow
+class MainWindow final: public BaseMultilingualWindow
 {
     Q_OBJECT
 
