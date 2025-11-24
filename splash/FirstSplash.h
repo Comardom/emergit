@@ -40,6 +40,7 @@ private:
 	QVBoxLayout *mainLayout;
 	// 创建并设置图片标签
 	QLabel *imageLabel;
+	QPixmap *pixmap;
 
 };
 

@@ -4,6 +4,8 @@ project(emergit LANGUAGES CXX)
 # 明确要求使用 C++23 标准
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+# 非常重要的编译qrc开关(RCC编译器开关)
+set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets LinguistTools)
 
@@ -24,6 +26,8 @@ qt_add_executable(emergit
         BaseMultilingualWindow.ui
         splash/FirstSplashThread.cpp
         splash/FirstSplashThread.h
+#        img/dyingStarUndMaria.bmp
+#        img/haizhiyun.jpg
 )
 
 # 告诉 lupdate，源代码中 tr() 包裹的文本是 zh_CN (简体中文)。
@@ -47,8 +51,11 @@ qt_add_translations(
         emergit_en_US.ts
         emergit_zh_TW.ts
         emergit_zh_CN.ts
-        # 关键：指定 .qm 文件的输出目录，以便 QRC 文件能找到它们
-        OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/i18n
+        # （旧的）关键：指定 .qm 文件的输出目录，以便 QRC 文件能找到它们
+#        OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/i18n
+        # 注意：移除了 OUTPUT_DIRECTORY。
+        # 让 Qt 自动管理路径，它会自动生成一个包含 .qm 的内部资源文件
+        # 并自动将其挂载到 ":/i18n/" 路径下（默认行为）。
 )
 
 target_link_libraries(emergit

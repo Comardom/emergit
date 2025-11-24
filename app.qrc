@@ -1,12 +1,12 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-    <qresource prefix="/i18n">
-        <file alias="emergit_en_US.qm">emergit_en_US.qm</file>
-        <file alias="emergit_zh_TW.qm">emergit_zh_TW.qm</file>
-        <file alias="emergit_zh_CN.qm">emergit_zh_CN.qm</file>
-    </qresource>
+<!--    <qresource prefix="/i18n">-->
+<!--        <file alias="emergit_en_US.qm">emergit_en_US.qm</file>-->
+<!--        <file alias="emergit_zh_TW.qm">emergit_zh_TW.qm</file>-->
+<!--        <file alias="emergit_zh_CN.qm">emergit_zh_CN.qm</file>-->
+<!--    </qresource>-->
     <qresource prefix="/img">
-        <file>img/dyingStarUndMaria.bmp</file>
-        <file>img/haizhiyun.jpg</file>
+        <file alias="a">img/haizhiyun.jpg</file>
+        <file alias="dyingStarUndMaria.bmp">img/dyingStarUndMaria.bmp</file>
     </qresource>
 </RCC>

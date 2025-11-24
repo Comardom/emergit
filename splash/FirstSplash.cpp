@@ -20,7 +20,7 @@
 FirstSplash::FirstSplash(QWidget *parent) : QDialog(parent), ui(new Ui::FirstSplash)
 {
 	// 加载UI
-	ui->setupUi(this);
+	// ui->setupUi(this);
 	// 实现无边框（取消边框功能）
 	this->setWindowFlags(Qt::FramelessWindowHint);
 	// 关闭自动释放内存
@@ -35,9 +35,12 @@ FirstSplash::FirstSplash(QWidget *parent) : QDialog(parent), ui(new Ui::FirstSpl
 	mainLayout = new QVBoxLayout(this);
 	// 创建并设置图片标签
 	imageLabel = new QLabel(this);
-	if(const QPixmap pixmap(":../img/dyingStarUndMaria.bmp");!pixmap.isNull())
+	pixmap=new QPixmap("img/dyingStarUndMaria.bmp");
+	if(!pixmap->isNull())
 	{
-		imageLabel->setPixmap(pixmap.scaled(400, 300, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+		imageLabel->setPixmap(
+			pixmap->scaled(400, 300, Qt::KeepAspectRatio, Qt::SmoothTransformation)
+			);
 	}
 	else
 	{
