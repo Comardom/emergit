@@ -40,5 +40,6 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::do_testButton_clicked()
 {
+
     QMessageBox::information(this, tr("哇这个好可爱鸭"), tr("按钮被点击了！"));
 }
