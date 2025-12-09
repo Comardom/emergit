@@ -2,6 +2,13 @@
 ###  更新内容
 * 整理main中代码，提取出Prologue类
 * 预添加修改splash配置的功能
+  ##### 重大告知
+  * KDE和GNOME在这个时间点马上要放弃X11了
+  * 目前KDE6.5.3和GNOME49都默认禁用了X11
+  * X11/Wayland切换的功能不做了
+  * 以后也不会再考虑适配X11了
+  * 喜大普奔
+  * 有别的适配需求欢迎提issue
 
 ---
 ## [2025-11-24] - 0.1.0-delta
@@ -48,7 +55,7 @@
 * appImage与avalonia的desktop生成
 * appImage的更新
 * 快捷方式图标切换为某图标包
-* x11/wayland的默认切换
+* x11/wayland的默认切换（不再需要，遂放弃）
 * 解决*neo*vim的剪贴板问题
 * ASIO/JACK2的全流程安装指导(放弃)
 * arch/manjaro镜像源调整
