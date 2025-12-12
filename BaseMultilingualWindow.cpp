@@ -76,7 +76,7 @@ void BaseMultilingualWindow::loadTranslator(const QString &localeName)
     }
 
     const QString baseName = "emergit_" + localeName;
-    QString qmPath = ":/i18n/" + baseName + ".qm";
+    const QString qmPath = ":/i18n/" + baseName + ".qm";
 
     qDebug() << "Loading translator from:" << qmPath;
 
@@ -95,7 +95,7 @@ void BaseMultilingualWindow::loadTranslator(const QString &localeName)
 // 多语言切换槽函数
 void BaseMultilingualWindow::changeLanguage(QAction *action)
 {
-    QString localeName = action->data().toString();
+    const QString localeName = action->data().toString();
 
     // 加载新的翻译文件
     loadTranslator(localeName);
@@ -111,7 +111,7 @@ void BaseMultilingualWindow::changeEvent(QEvent *event)
     if (event->type() == QEvent::LanguageChange)
     {
         // 保存当前标题
-        QString currentTitle = windowTitle();
+        const QString currentTitle = windowTitle();
 
         ui->retranslateUi(this); // 重新翻译 UI
 

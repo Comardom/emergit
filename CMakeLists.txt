@@ -13,16 +13,16 @@ qt_standard_project_setup()
 
 qt_add_executable(emergit
         WIN32 MACOSX_BUNDLE
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
         app.qrc
+        main.cpp
+        Prologue.cpp
+        Prologue.h
         BaseMultilingualWindow.cpp
         BaseMultilingualWindow.h
         BaseMultilingualWindow.ui
-        Prologue.cpp
-        Prologue.h
+        OSymphonica.cpp
+        OSymphonica.h
+        OSymphonica.ui
 )
 
 # 告诉 lupdate，源代码中 tr() 包裹的文本是 zh_CN (简体中文)。
@@ -30,9 +30,9 @@ qt_add_executable(emergit
 # 这是实现“tr包裹简中”的关键。
 set_property(SOURCE
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        .trash/mainwindow.cpp
+        .trash/mainwindow.h
+        .trash/mainwindow.ui
         APPEND PROPERTY
         QT_TRANSLATION_SOURCE_LANGUAGE "zh_CN"
 )

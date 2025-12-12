@@ -6,7 +6,7 @@
     <message>
         <location filename="BaseMultilingualWindow.ui" line="14"/>
         <source>BaseMultilingualWindow</source>
-        <translation type="unfinished">tw</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="BaseMultilingualWindow.cpp" line="28"/>
@@ -16,25 +16,24 @@
     <message>
         <location filename="BaseMultilingualWindow.cpp" line="35"/>
         <source>简体中文</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">简体中文</translation>
     </message>
     <message>
         <location filename="BaseMultilingualWindow.cpp" line="36"/>
         <source>繁體中文</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">繁體中文</translation>
     </message>
     <message>
         <location filename="BaseMultilingualWindow.cpp" line="37"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">English</translation>
     </message>
 </context>
 <context>
     <name>FirstSplash</name>
     <message>
-        <location filename="splash/FirstSplash.ui" line="14"/>
         <source>FirstSplash</source>
-        <translation type="unfinished">FStw</translation>
+        <translation type="obsolete">FStw</translation>
     </message>
     <message>
         <source>PushButton</source>
@@ -58,54 +57,36 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;臺灣新細明體&apos;; font-size:12pt; font-weight:500; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&amp;lt;p&amp;gt;這是一個Splash頁，但是作者太懶了沒有做美工，以後會有的&amp;lt;/p&amp;gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
-    <message>
-        <location filename="splash/FirstSplash.cpp" line="47"/>
-        <location filename="splash/FirstSplash.cpp" line="56"/>
-        <source>藏新芽</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainwindow.ui" line="14"/>
         <source>123</source>
-        <translation type="unfinished">tw</translation>
+        <translation type="obsolete">tw</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="44"/>
         <source>PushButton</source>
-        <translation type="unfinished">tw</translation>
+        <translation type="obsolete">tw</translation>
     </message>
     <message>
         <source>语言</source>
         <translation type="obsolete">語言</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="63"/>
-        <source>简体中文</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="68"/>
-        <source>繁體中文</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="73"/>
-        <source>English</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="29"/>
-        <location filename="mainwindow.cpp" line="48"/>
         <source>哇这个好可爱鸭</source>
-        <translation type="unfinished">哇這個好可愛鴨</translation>
+        <translation type="obsolete">哇這個好可愛鴨</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="48"/>
         <source>按钮被点击了！</source>
-        <translation type="unfinished">按鈕被點擊了！</translation>
+        <translation type="obsolete">按鈕被點擊了！</translation>
+    </message>
+</context>
+<context>
+    <name>OSymphonica</name>
+    <message>
+        <location filename="OSymphonica.ui" line="17"/>
+        <source>OSymphonica</source>
+        <translation type="unfinished">Orchestra Symphonica</translation>
     </message>
 </context>
 </TS>

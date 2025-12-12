@@ -1,11 +1,10 @@
 //main.cpp
-//主窗口的头文件
-#include "mainwindow.h"
+
 #include "Prologue.h"
+#include "OSymphonica.h"
 
 #include <QApplication> // 负责事件处理
 #include <QSplashScreen> // 负责开屏动画
-#include <QScreen> // 负责窗体居中逻辑
 #include <QElapsedTimer> // 负责计时器
 #include <memory>// 负责unique
 
@@ -20,7 +19,6 @@ int main(int argc, char *argv[])
     // 它是 Qt Widgets 应用程序的控制中心，负责事件处理、设置等。
     QApplication a(argc, argv);
     // 创建初始化类
-    // const auto prologue = new Prologue();
     const auto prologue = std::make_unique<Prologue>();
 
     //创建开屏窗体
@@ -38,13 +36,13 @@ int main(int argc, char *argv[])
     }
 
     // 实例化并显示主窗口
-    MainWindow w;
+    OSymphonica osym;
     // 手动居中
-    prologue->computeXYUndMoveWindow(w);
-    w.show();
+    prologue->computeXYUndMoveWindow(osym);
+    osym.show();
 
     // 当主窗口显示后，结束 Splash
-    splash.finish(&w);
+    splash.finish(&osym);
 
 
     //  启动应用程序的事件循环

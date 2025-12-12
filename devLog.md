@@ -1,6 +1,20 @@
 窗体使用多语言：<br />
+先创建ui文件，继承自QMainWindow，<br />
+然后改掉继承，写成这样：<br />
+.h：
+```
+class [类名] final:  public BaseMultilingualWindow
+```
+.cpp:
+
+```
+: BaseMultilingualWindow(parent)
+```
 继承BaseMultilingualWindow类，<br />
 在头文件中加入
+```
+#include "BaseMultilingualWindow.h"
+```
 ```
 protected:
     void changeEvent(QEvent *event) override; 
@@ -9,15 +23,14 @@ protected:
 ```
 createLanguageMenu();
 ```
-并加入函数
+并在cpp中加入函数
 ```
-void 【类名】::changeEvent(QEvent *event)
+void [类名]::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange)
     {
-        // 重新翻译 MainWindow 的 UI
+        // 重新翻译 UI
         ui->retranslateUi(this);
-        qDebug() << "MainWindow language changed";
     }
 
     // 调用基类的changeEvent
@@ -29,3 +42,5 @@ void 【类名】::changeEvent(QEvent *event)
 
 ---
 
+主窗口在Wayland多屏幕下的显示策略是：<br />
+打开程序时，鼠标在哪里，Splash就在哪里，主窗口也在哪里
