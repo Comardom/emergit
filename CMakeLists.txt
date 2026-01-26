@@ -23,6 +23,9 @@ qt_add_executable(emergit
         OSymphonica.cpp
         OSymphonica.h
         OSymphonica.ui
+        plugin/Shutdown.cpp
+        plugin/Shutdown.h
+        plugin/Shutdown.ui
 )
 
 # 告诉 lupdate，源代码中 tr() 包裹的文本是 zh_CN (简体中文)。
