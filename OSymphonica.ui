@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>401</width>
-    <height>771</height>
+    <width>782</width>
+    <height>306</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,25 +26,100 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="tabShutdown">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>倒计时关机</string>
        </attribute>
-       <widget class="QWidget" name="formLayoutWidget">
+       <widget class="QDial" name="dialSecond">
         <property name="geometry">
          <rect>
-          <x>-1</x>
-          <y>-1</y>
-          <width>381</width>
-          <height>701</height>
+          <x>600</x>
+          <y>110</y>
+          <width>111</width>
+          <height>101</height>
          </rect>
         </property>
-        <layout class="QFormLayout" name="formLayout"/>
+        <property name="wrapping">
+         <bool>false</bool>
+        </property>
+        <property name="notchesVisible">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QDial" name="dialMinute">
+        <property name="geometry">
+         <rect>
+          <x>420</x>
+          <y>110</y>
+          <width>111</width>
+          <height>101</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLCDNumber" name="lcdSecond">
+        <property name="geometry">
+         <rect>
+          <x>420</x>
+          <y>20</y>
+          <width>231</width>
+          <height>91</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLCDNumber" name="lcdMinute">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>20</y>
+          <width>231</width>
+          <height>91</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLCDNumber" name="lcdHour">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>20</y>
+          <width>231</width>
+          <height>91</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDial" name="dialHour">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>110</y>
+          <width>111</width>
+          <height>101</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QDial" name="dialDay">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>110</y>
+          <width>111</width>
+          <height>101</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLCDNumber" name="lcdDay">
+        <property name="geometry">
+         <rect>
+          <x>-120</x>
+          <y>20</y>
+          <width>231</width>
+          <height>91</height>
+         </rect>
+        </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_3">
+      <widget class="QWidget" name="tabSettings">
        <attribute name="title">
-        <string>页</string>
+        <string>程序设置</string>
        </attribute>
       </widget>
      </widget>

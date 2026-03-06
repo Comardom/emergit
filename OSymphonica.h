@@ -9,12 +9,10 @@
 
 
 QT_BEGIN_NAMESPACE
-
 namespace Ui
 {
 	class OSymphonica;
 }
-
 QT_END_NAMESPACE
 
 class OSymphonica final:  public BaseMultilingualWindow
