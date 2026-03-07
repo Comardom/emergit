@@ -6,7 +6,7 @@
 #define EMERGIT_SHUTDOWN_H
 
 #include <QMainWindow>
-
+#include "../BaseMultilingualWindow.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -16,18 +16,26 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-class Shutdown : public QMainWindow {
+class Shutdown final:  public BaseMultilingualWindow {
     Q_OBJECT
 
 public:
     explicit Shutdown(QWidget *parent = nullptr);
 
-    void qwerty();
+    void lcdSettings() const;
 
     ~Shutdown() override;
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private:
     Ui::Shutdown *ui;
+    void dialSettings() const;
+
+    void connectDialToLcd() const;
+
+    void changeSingularUndPluralForDials();
 };
 
 

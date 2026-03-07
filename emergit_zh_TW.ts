@@ -84,9 +84,36 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>OSymphonica</name>
     <message>
-        <location filename="OSymphonica.ui" line="17"/>
         <source>OSymphonica</source>
+        <translation type="obsolete">Orchestra Symphonica</translation>
+    </message>
+    <message>
+        <location filename="OSymphonica.ui" line="14"/>
+        <source>Orchestra Symphonica</source>
         <translation type="unfinished">Orchestra Symphonica</translation>
+    </message>
+    <message>
+        <location filename="OSymphonica.ui" line="31"/>
+        <source>程序入口</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="OSymphonica.ui" line="43"/>
+        <source>定时关机</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="OSymphonica.ui" line="49"/>
+        <source>程序设置</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Shutdown</name>
+    <message>
+        <location filename="plugin/Shutdown.ui" line="14"/>
+        <source>Shutdown</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

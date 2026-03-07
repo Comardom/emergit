@@ -6,6 +6,8 @@
 #define EMERGIT_OSYMPHONICA_H
 
 #include "BaseMultilingualWindow.h"
+#include "plugin/Shutdown.h"
+#include <QPointer>
 
 
 QT_BEGIN_NAMESPACE
@@ -14,7 +16,7 @@ namespace Ui
 	class OSymphonica;
 }
 QT_END_NAMESPACE
-
+// class Shutdown;
 class OSymphonica final:  public BaseMultilingualWindow
 {
 	Q_OBJECT
@@ -29,6 +31,7 @@ protected:
 
 private:
 	Ui::OSymphonica *ui;
+	QPointer<Shutdown> shutdownWindow;
 };
 
 

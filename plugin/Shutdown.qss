@@ -1,0 +1,7 @@
+/* 匹配所有 class 属性为 lcd_style 的 QLabel */
+QLabel[class="lcdSideStyle"] {
+    font-family: 'Consolas';
+    font-size: 20px;
+    font-weight: bold;
+    color: #2ECC71;
+}

@@ -7,10 +7,9 @@
 
 #include "BaseMultilingualWindow.h"
 #include "ui_OSymphonica.h"
+#include "plugin/Shutdown.h"
 
-
-#include <QDial>
-#include <QLCDNumber>
+#include <memory>
 
 OSymphonica::OSymphonica(QWidget *parent)
 	: BaseMultilingualWindow(parent)
@@ -20,27 +19,21 @@ OSymphonica::OSymphonica(QWidget *parent)
 	ui->setupUi(this);
 	createLanguageMenu();
 
-	//刻度从0到59
-	ui->dialMinute->setRange(0,59);
-	ui->dialSecond->setRange(0,59);
-	ui->dialHour->setRange(0,23);
-	ui->dialDay->setRange(0,31);
-	//显示刻度
-	ui->dialMinute->setNotchesVisible(true);
-	ui->dialSecond->setNotchesVisible(true);
-	ui->dialHour->setNotchesVisible(true);
-	ui->dialDay->setNotchesVisible(true);
-	//禁止直接跨越最大值
-	ui->dialMinute->setWrapping(false);
-	ui->dialSecond->setWrapping(false);
-	ui->dialHour->setWrapping(false);
-	ui->dialDay->setWrapping(false);
-	//对旋钮和LCD显示做连接
-	connect(ui->dialSecond,&QDial::valueChanged,ui->lcdSecond,qOverload<int>(&QLCDNumber::display));
-	connect(ui->dialMinute,&QDial::valueChanged,ui->lcdMinute,qOverload<int>(&QLCDNumber::display));
-	connect(ui->dialHour,&QDial::valueChanged,ui->lcdHour,qOverload<int>(&QLCDNumber::display));
-	connect(ui->dialDay,&QDial::valueChanged,ui->lcdDay,qOverload<int>(&QLCDNumber::display));
-
+	connect(
+		ui->pushBtnShutdown,
+		&QPushButton::clicked,
+		this,
+		[this](){
+			if (!shutdownWindow)
+			{
+				shutdownWindow = new Shutdown();
+				shutdownWindow->setAttribute(Qt::WA_DeleteOnClose);//防止内存泄漏
+			}
+			shutdownWindow->show();
+			shutdownWindow->raise();  // 确保在最前面
+			shutdownWindow->activateWindow(); // 激活
+			}
+	);
 }
 
 OSymphonica::~OSymphonica()
