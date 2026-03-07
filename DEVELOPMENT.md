@@ -1,6 +1,7 @@
 # 目录
 
 1. [编译环境说明](#编译环境说明br-)
+2. [Windows下Clion的配置]()
 2. [窗体使用多语言](#窗体使用多语言-br-)
 2. [主窗口在Wayland多屏幕下的显示策略](#主窗口在wayland多屏幕下的显示策略br-)
 3. [集体设置属性（for-each）](#集体设置属性br-)
@@ -23,6 +24,28 @@
 * gcc(g++) 15.2.1
 * ninja  1.13.2
 
+
+---
+
+## Windows下Clion的配置
+
+1. 安装qt
+2. 寻找qt所在文件夹，形如“C:\Qt\6.x.x\mingw_64”
+3. 在设置-构建、执行、部署-CMake中找到Debug和Release
+4. 没有就新建一个
+5. 在两个profile的CMake选项中加入这个：
+   * “-DCMAKE_PREFIX_PATH="C:/Qt/6.x.x/mingw_64"”
+6. 把6.x.x改成你自己的版本
+7. 在设置-构建、执行、部署-工具链中找到MinGW
+8. 没有就自己新建
+9. 把MinGW的路径改成“C:\Qt\Tools\mingwXXXX_64”
+10. 把XXXX改成你自己的版本，什么版本自己去找
+11. 在右上角的项目名处点击下拉菜单找到编辑配置
+12. 点进环境变量
+13. 加入一条环境变量如下：
+    * Name : PATH
+    * Value : C:\Qt\6.x.x\mingw_64\bin;%PATH%
+14. 把6.x.x改成你自己的版本
 
 ---
 
