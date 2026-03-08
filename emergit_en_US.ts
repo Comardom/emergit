@@ -96,17 +96,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="OSymphonica.ui" line="31"/>
         <source>程序入口</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Programme Entry</translation>
     </message>
     <message>
         <location filename="OSymphonica.ui" line="43"/>
-        <source>定时关机</source>
-        <translation type="unfinished"></translation>
+        <source>倒计时关机</source>
+        <oldsource>定时关机</oldsource>
+        <translation type="unfinished">Countdown to Shutdown</translation>
     </message>
     <message>
         <location filename="OSymphonica.ui" line="49"/>
         <source>程序设置</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Settings</translation>
     </message>
 </context>
 <context>
@@ -114,7 +115,54 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="plugin/Shutdown.ui" line="14"/>
         <source>Shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Countdown to Shutdown</translation>
+    </message>
+    <message>
+        <location filename="plugin/Shutdown.ui" line="51"/>
+        <source>日</source>
+        <translation type="unfinished">D</translation>
+    </message>
+    <message>
+        <location filename="plugin/Shutdown.ui" line="67"/>
+        <location filename="plugin/Shutdown.ui" line="116"/>
+        <location filename="plugin/Shutdown.ui" line="165"/>
+        <source>:</source>
+        <translation type="unfinished">:</translation>
+    </message>
+    <message>
+        <location filename="plugin/Shutdown.ui" line="100"/>
+        <source>时</source>
+        <translation type="unfinished">H</translation>
+    </message>
+    <message>
+        <location filename="plugin/Shutdown.ui" line="149"/>
+        <source>分</source>
+        <translation type="unfinished">M</translation>
+    </message>
+    <message>
+        <location filename="plugin/Shutdown.ui" line="205"/>
+        <source>秒</source>
+        <translation type="unfinished">S</translation>
+    </message>
+    <message>
+        <location filename="plugin/Shutdown.ui" line="233"/>
+        <source>设定</source>
+        <translation type="unfinished">Settings</translation>
+    </message>
+    <message>
+        <location filename="plugin/Shutdown.ui" line="242"/>
+        <source>天数上限</source>
+        <translation type="unfinished">Days Upper Limit</translation>
+    </message>
+    <message>
+        <location filename="plugin/Shutdown.cpp" line="92"/>
+        <source>天数上限更改</source>
+        <translation type="unfinished">Days Upper Limit Changing</translation>
+    </message>
+    <message>
+        <location filename="plugin/Shutdown.cpp" line="93"/>
+        <source>请输入您想设定的天数上限:</source>
+        <translation type="unfinished">Please enter the maximum number of days you wish to set:</translation>
     </message>
 </context>
 </TS>

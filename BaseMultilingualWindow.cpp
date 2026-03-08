@@ -61,29 +61,31 @@ void BaseMultilingualWindow::createLanguageMenu()
 
     // 连接语言选择信号到槽函数
     connect(langActionGroup, &QActionGroup::triggered,
-        this, &BaseMultilingualWindow::changeLanguage);
+        this, [this](QAction *action) {this->changeLanguage(action);});
 }
 
 // 加载新的翻译文件并触发刷新
 void BaseMultilingualWindow::loadTranslator(const QString &localeName)
 {
-    qApp->removeTranslator(&appTranslator); // 移除旧的翻译器
-
-    if (localeName == "zh_CN")
-    {
-        // 简体中文无需加载翻译文件
-        return;
+    // 使用静态变量，确保全局只有一个翻译器在工作
+    static QTranslator* s_translator = nullptr;
+    if (!s_translator) {
+        s_translator = new QTranslator(qApp);
     }
 
-    const QString baseName = "emergit_" + localeName;
-    const QString qmPath = ":/i18n/" + baseName + ".qm";
+    qApp->removeTranslator(&appTranslator); // 移除旧的翻译器
+
+
+    const QString qmPath = ":/i18n/emergit_" + localeName + ".qm";
 
     qDebug() << "Loading translator from:" << qmPath;
 
-    if (appTranslator.load(qmPath))
+
+    if (s_translator->load(qmPath))
     {
-        qApp->installTranslator(&appTranslator);
+        qApp->installTranslator(s_translator);
         qDebug() << "Successfully loaded translator for:" << localeName;
+        // installTranslator 会自动给全程序所有窗口发 LanguageChange 事件！
     }
     else
     {
@@ -100,9 +102,9 @@ void BaseMultilingualWindow::changeLanguage(QAction *action)
     // 加载新的翻译文件
     loadTranslator(localeName);
 
-    // 关键：通知所有 UI 元素进行自我刷新
-    QEvent event(QEvent::LanguageChange);
-    qApp->sendEvent(this, &event);
+    // 关键：通知所有 UI 元素进行自我刷新(应该是不需要的)
+    // QEvent event(QEvent::LanguageChange);
+    // qApp->sendEvent(this, &event);
 }
 
 // 语言改变时，刷新界面

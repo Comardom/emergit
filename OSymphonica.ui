@@ -40,7 +40,7 @@
          </rect>
         </property>
         <property name="text">
-         <string>定时关机</string>
+         <string>倒计时关机</string>
         </property>
        </widget>
       </widget>

@@ -21,21 +21,25 @@ class Shutdown final:  public BaseMultilingualWindow {
 
 public:
     explicit Shutdown(QWidget *parent = nullptr);
-
-    void lcdSettings() const;
-
     ~Shutdown() override;
+
 
 protected:
     void changeEvent(QEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
+
+private slots:
+    void changeDaysLimit();
 
 private:
     Ui::Shutdown *ui;
     void dialSettings() const;
-
+    void lcdSettings() const;
     void connectDialToLcd() const;
-
     void changeSingularUndPluralForDials();
+    void connectMenuBar();
+    void addLabelClass() const;
+    void loadQSS();
 };
 
 

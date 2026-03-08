@@ -2,7 +2,6 @@
 // Created by chara on 2026/1/26.
 //
 
-// You may need to build the project (run Qt uic code generator) to get "ui_Shutdown.h" resolved
 
 #include "Shutdown.h"
 #include "ui_Shutdown.h"
@@ -10,7 +9,9 @@
 #include <QLCDNumber>
 #include <QFile>
 #include <QStyle>
-
+#include <QInputDialog>
+#include <QRegularExpression>
+#include <QResizeEvent>
 
 Shutdown::Shutdown(QWidget *parent)
     : BaseMultilingualWindow(parent)
@@ -21,32 +22,19 @@ Shutdown::Shutdown(QWidget *parent)
     //多语言
     createLanguageMenu();
 
-
     //执行组件属性设定
     dialSettings();
     lcdSettings();
+
     //信号连接
     connectDialToLcd();
+    //菜单栏按钮的信号连接
+    connectMenuBar();
 
-
-    // 找到 Shutdown 窗口里所有的 QLabel 控件并集中处理QSS
-    const auto labels = this->findChildren<QLabel*>();
-    for (auto* label : labels)
-    {
-        label->setProperty("class", "lcdSideStyle");
-        label->style()->unpolish(label); // 清除旧属性影响
-        label->style()->polish(label);   // 重新应用新样式
-    }
-
+    //设定label的自定义类
+    addLabelClass();
     // 加载资源文件中的 QSS
-    if (QFile qssFile(":/qss/shutdown"); qssFile.open(QFile::ReadOnly))
-    {
-        // 直接给当前窗口设置样式
-        this->setStyleSheet(qssFile.readAll());
-        qssFile.close();
-    }
-    //改变单复数
-    changeSingularUndPluralForDials();
+    loadQSS();
 }
 
 
@@ -54,7 +42,7 @@ void Shutdown::lcdSettings() const
 {
     //取消LCD的边框
     const auto lcds = this->findChildren<QLCDNumber*>();
-    for(auto* lcd : std::as_const(lcds))//此处as_const用于优化性能
+    for(auto* lcd : lcds)
     {
         lcd->setFrameStyle(QFrame::NoFrame);
     }
@@ -69,7 +57,7 @@ void Shutdown::dialSettings() const
     ui->dialDay->setRange(0,31);
     //显示刻度,禁止直接跨越最大值
     const auto dials = this->findChildren<QDial*>();
-    for(auto* dial : std::as_const(dials))//此处as_const用于优化性能
+    for(auto* dial : dials)
     {
         dial->setNotchesVisible(true);
         dial->setWrapping(false);
@@ -79,35 +67,92 @@ void Shutdown::dialSettings() const
 void Shutdown::connectDialToLcd() const
 {
     //对旋钮和LCD显示做连接
-    connect(ui->dialSecond,&QDial::valueChanged,ui->lcdSecond,qOverload<int>(&QLCDNumber::display));
-    connect(ui->dialMinute,&QDial::valueChanged,ui->lcdMinute,qOverload<int>(&QLCDNumber::display));
-    connect(ui->dialHour,&QDial::valueChanged,ui->lcdHour,qOverload<int>(&QLCDNumber::display));
-    connect(ui->dialDay,&QDial::valueChanged,ui->lcdDay,qOverload<int>(&QLCDNumber::display));
+    connect(ui->dialSecond,&QDial::valueChanged,
+        ui->lcdSecond,qOverload<int>(&QLCDNumber::display));
+    connect(ui->dialMinute,&QDial::valueChanged,
+        ui->lcdMinute,qOverload<int>(&QLCDNumber::display));
+    connect(ui->dialHour,&QDial::valueChanged,
+        ui->lcdHour,qOverload<int>(&QLCDNumber::display));
+    connect(ui->dialDay,&QDial::valueChanged,
+        ui->lcdDay,qOverload<int>(&QLCDNumber::display));
 }
 
-void Shutdown::changeSingularUndPluralForDials()
+void Shutdown::connectMenuBar()
 {
-    //一共四个参数，触发信号(第二个参数)时第一个参数(dial对象)会抛出一个值，这个值会传递给第四个参数(lambda)，然后被捕获使用
-    connect(ui->dialSecond,&QDial::valueChanged,
-        this,[this](const int x) {
-            const QString s = (x > 1) ? tr("Seconds") : tr("Second");
-            ui->labelSecond->setText(s);
-        });
-    connect(ui->dialMinute,&QDial::valueChanged,
-        this,[this](const int x) {
-            const QString s = (x > 1) ? tr("Minutes") : tr("Minute");
-            ui->labelMinute->setText(s);
-        });
-    connect(ui->dialHour,&QDial::valueChanged,
-        this,[this](const int x) {
-            const QString s = (x > 1) ? tr("Hours") : tr("Hour");
-            ui->labelHour->setText(s);
-        });
-    connect(ui->dialDay,&QDial::valueChanged,
-        this,[this](const int x) {
-            const QString s = (x > 1) ? tr("Days") : tr("Day");
-            ui->labelDay->setText(s);
-        });
+    connect(ui->actionChangeDaysLimit,&QAction::triggered,
+        this,&Shutdown::changeDaysLimit);
+}
+
+void Shutdown::changeDaysLimit()
+{
+    bool ok;
+    qDebug()<<"Days Limit";
+    const int i = QInputDialog::getInt(this, tr("天数上限更改"),
+    tr("请输入您想设定的天数上限:"), 31, 0, 99, 1, &ok);
+    if (ok)
+    {
+        ui->dialDay->setRange(0,i);
+        //如果天数太多就不要提供刻度了，怕卡死
+        if (i > 1000) {ui->dialDay->setNotchesVisible(false);}
+    }
+}
+
+void Shutdown::addLabelClass() const
+{
+    //冒号
+    auto labelsColon =
+        this->findChildren<QLabel*>(QRegularExpression("labelColon.*"));
+    for (auto* label : labelsColon)
+    {
+        qDebug()<<label;
+        if (!label) continue;
+        label->setProperty("class", "labelsColon");
+        label->style()->unpolish(label); // 清除旧属性影响
+        label->style()->polish(label);   // 重新应用新样式
+        label->update(); // 触发重绘
+    }
+    //量词
+    auto labelsQuantifier =
+        this->findChildren<QLabel*>(QRegularExpression("labelQuantifier.*"));
+    for (auto* label : labelsQuantifier)
+    {
+        qDebug()<<label;
+        if (!label) continue;
+        label->setProperty("class", "labelsQuantifier");
+        label->style()->unpolish(label); // 清除旧属性影响
+        label->style()->polish(label);   // 重新应用新样式
+        label->update(); // 触发重绘
+    }
+    // const auto labels = this->findChildren<QLabel*>();
+}
+
+void Shutdown::loadQSS()
+{
+    QFile qssFile(":/qss/shutdown");
+    if (qssFile.open(QFile::ReadOnly))
+    {
+        // 直接给当前窗口设置样式
+        this->setStyleSheet(qssFile.readAll());
+        qssFile.close();
+    }
+}
+
+
+void Shutdown::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event); // 先调用基类处理
+
+    // 根据窗口宽度计算一个比例（比如窗口宽度的 5%）
+    const int newFontSize = this->width() / 20;
+    auto labels = this->findChildren<QLabel*>();
+    for(auto* label : labels)
+    {
+        // 注意：这里要直接设置 font，因为 QSS 的优先级很高
+        // 如果 QSS 里写死了 pt，这里设置可能会被覆盖，建议把 QSS 里的字号删掉
+        QFont f = label->font();
+        f.setPointSize(newFontSize);
+        label->setFont(f);
+    }
 }
 
 void Shutdown::changeEvent(QEvent *event){

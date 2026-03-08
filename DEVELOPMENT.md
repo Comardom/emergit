@@ -24,6 +24,10 @@
 * gcc(g++) 15.2.1
 * ninja  1.13.2
 
+### 其他说明
+* Windows也可以使用msvc，但是目前还没有经过测试
+* freeBSD请使用Clang，已经过测试
+
 
 ---
 
@@ -98,10 +102,10 @@ void [类名]::changeEvent(QEvent *event)
 
 ---
 ## 集体设置属性<br />
-量使用这种for-each，用findChildren，记得冒号后面要加as-const优化性能
+量使用这种for-each，用findChildren，也可以加入正则表达式
 ```
-const auto dials = this->findChildren<QDial*>();
-for(auto* dial : std::as_const(dials))
+const auto things = this->findChildren<QDial*>(QRegularExpression(".*"));
+for(auto* thing : things)
 {
     ……
 }

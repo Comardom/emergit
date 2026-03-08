@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 # 非常重要的编译qrc开关(RCC编译器开关)
 set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 # 版本是Qt6.5, Widget程序，使用多语言
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets LinguistTools)
 
@@ -27,15 +29,20 @@ qt_add_executable(emergit
         plugin/Shutdown.h
         plugin/Shutdown.ui
 )
-
+# 定义一个变量包含所有 UI 相关文件
+set(TS_SOURCES
+    main.cpp
+    Prologue.h Prologue.cpp
+    BaseMultilingualWindow.h BaseMultilingualWindow.cpp BaseMultilingualWindow.ui
+    OSymphonica.h OSymphonica.cpp OSymphonica.ui
+    plugin/Shutdown.h
+    plugin/Shutdown.cpp
+    plugin/Shutdown.ui
+)
 # 告诉 lupdate，源代码中 tr() 包裹的文本是 zh_CN (简体中文)。
 # 这样 lupdate 在生成 .ts 文件时，会将 zh_CN 的文本作为源文本。
 # 这是实现“tr包裹简中”的关键。
-set_property(SOURCE
-        main.cpp
-        .trash/mainwindow.cpp
-        .trash/mainwindow.h
-        .trash/mainwindow.ui
+set_property(SOURCE ${TS_SOURCES}
         APPEND PROPERTY
         QT_TRANSLATION_SOURCE_LANGUAGE "zh_CN"
 )
@@ -47,11 +54,6 @@ qt_add_translations(
         emergit_en_US.ts
         emergit_zh_TW.ts
         emergit_zh_CN.ts
-        # （被废弃的）关键：指定 .qm 文件的输出目录，以便 QRC 文件能找到它们
-        #  OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/i18n
-        # 注意：移除了 OUTPUT_DIRECTORY。
-        # 让 Qt 自动管理路径，它会自动生成一个包含 .qm 的内部资源文件
-        # 并自动将其挂载到 ":/i18n/" 路径下（默认行为）。
 )
 
 target_link_libraries(emergit
