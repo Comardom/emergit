@@ -97,6 +97,9 @@ target_link_libraries(emergit
         Qt::Widgets
 #        Qt6::DBus
 )
+if(MSVC)
+    target_compile_options(emergit PRIVATE /utf-8 /permissive-)
+endif()
 # 仅在 Windows 平台下链接系统 API 库
 if(WIN32)
     target_link_libraries(emergit

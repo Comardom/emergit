@@ -26,7 +26,7 @@
 * ninja  1.13.2
 
 ### 其他说明
-* Windows也可以使用msvc，但是目前还没有经过测试
+* Windows可以使用msvc，也可以使用MinGW，测试过均可行
 * freeBSD请使用Clang，已经过测试
 * Mac OS暂时无法测试
 

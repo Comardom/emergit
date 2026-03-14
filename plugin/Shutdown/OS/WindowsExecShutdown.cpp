@@ -32,7 +32,7 @@ void WindowsExecShutdown::schedulePowerOffWithSinglyParaSEC(const qint64 fullSec
 	// 参数含义：计算机名, 提示语, 倒计时秒数, 强制关闭, 重启(false为关机)
 	BOOL result = InitiateSystemShutdownEx(
 		NULL,                       // 本地机器
-		L"系统即将在倒计时结束后关闭。请保存所有工作文件。",
+		const_cast<LPWSTR>(L"系统即将在倒计时结束后关闭。请保存所有工作文件。"),
 		static_cast<DWORD>(fullSecondsToWait),             // 倒计时
 		TRUE,                       // 强制关闭所有应用
 		FALSE,                      // 不重启，执行关机
