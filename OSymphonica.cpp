@@ -5,9 +5,9 @@
 
 #include "OSymphonica.h"
 
-#include "BaseMultilingualWindow.h"
+// #include "BaseMultilingualWindow.h"
 #include "ui_OSymphonica.h"
-#include "plugin/Shutdown.h"
+#include "plugin/Shutdown/Shutdown.h"
 
 #include <memory>
 

@@ -17,9 +17,9 @@
    <iconset theme="QIcon::ThemeIcon::AudioVolumeMuted"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_2">
+   <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0,1,0,1,0,1">
         <item>
@@ -118,7 +118,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="label_4">
             <property name="text">
              <string/>
             </property>
@@ -212,6 +212,27 @@
            </layout>
           </item>
          </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="pushBtnCancelShutdown">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>取消</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="pushBtnStartShutdown">
+          <property name="text">
+           <string>执行</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

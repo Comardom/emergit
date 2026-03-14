@@ -5,6 +5,6 @@
         <file alias="b">img/dyingStarUndMaria.bmp</file>
     </qresource>
     <qresource prefix="/qss">
-        <file alias="shutdown">plugin/Shutdown.qss</file>
+        <file alias="shutdown">plugin/Shutdown/Shutdown.qss</file>
     </qresource>
 </RCC>

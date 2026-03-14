@@ -6,7 +6,7 @@
 #define EMERGIT_OSYMPHONICA_H
 
 #include "BaseMultilingualWindow.h"
-#include "plugin/Shutdown.h"
+#include "plugin/Shutdown/Shutdown.h"
 #include <QPointer>
 
 

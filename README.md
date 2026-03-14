@@ -1,3 +1,23 @@
+## [2026-03-14] - 0.1.1.5
+###  更新内容
+* Shutdown类对不同系统的原生关机建立了工厂模式
+* 提供了针对Linux、Windows、FreeBSD的原生定时关机
+  * 均继承自ShutdownForOSInterface接口
+  * 均为单例模式，方便内存管理
+* 修改了CMakeLists
+  * 保证了不同平台链接不同的文件和库  
+  * 简化了一部分多语言相关脚本
+* 对UI进行了修补
+  * 防误触和bug
+  * 明确使用逻辑（类似于码表）
+* 重新确定了计时逻辑
+  * 开始计时->每秒钟触发一次UI加载->异步加载不同系统的关机指令
+  * FreeBSD单独对秒数进行计时，分及以上单位统一进入异步的系统计时
+* 对BaseMultilingualWindow做了小的改动，保证翻译器机制有效
+* Shutdown类不采用友元函数而是提供public getter来让外界获取秒数
+* Manjaro26 KDE以及Fedora43 Desktop KDE测试成功
+
+---
 ## [2026-03-08] - 0.1.1.4
 ###  更新内容
 * 确定了对freeBSD(使用Clang)的支持

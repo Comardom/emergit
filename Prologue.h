@@ -24,6 +24,7 @@ public:
 private:
 	// 提供选项调整Splash
 	bool needFastestInit;
+	// TODO : 完成启动选项的设置
 	enum class splashOption;
 	int splashTime;
 	void initSplashTime();

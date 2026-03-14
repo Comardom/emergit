@@ -61,7 +61,9 @@ void BaseMultilingualWindow::createLanguageMenu()
 
     // 连接语言选择信号到槽函数
     connect(langActionGroup, &QActionGroup::triggered,
-        this, [this](QAction *action) {this->changeLanguage(action);});
+        this, [this](QAction *action) {
+            this->changeLanguage(action);
+        });
 }
 
 // 加载新的翻译文件并触发刷新
@@ -69,11 +71,20 @@ void BaseMultilingualWindow::loadTranslator(const QString &localeName)
 {
     // 使用静态变量，确保全局只有一个翻译器在工作
     static QTranslator* s_translator = nullptr;
-    if (!s_translator) {
+    if (!s_translator)
+    {
         s_translator = new QTranslator(qApp);
     }
+    else
+    {
+        qApp->removeTranslator(s_translator); // 移除旧的翻译器
+    }
 
-    qApp->removeTranslator(&appTranslator); // 移除旧的翻译器
+    if(!appTranslator.isEmpty())
+    {
+        qApp->removeTranslator(&appTranslator);// 移除旧的翻译器
+    }
+
 
 
     const QString qmPath = ":/i18n/emergit_" + localeName + ".qm";

@@ -9,13 +9,12 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 # 版本是Qt6.5, Widget程序，使用多语言
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets LinguistTools)
-find_package(Qt6 6.5 OPTIONAL_COMPONENTS DBus)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets LinguistTools DBus)
 
 qt_standard_project_setup()
 
 set(PROJECT_SOURCES
-        app.qrc
+#        app.qrc
         main.cpp
         Prologue.cpp
         Prologue.h
@@ -28,6 +27,12 @@ set(PROJECT_SOURCES
         plugin/Shutdown/Shutdown.cpp
         plugin/Shutdown/Shutdown.h
         plugin/Shutdown/Shutdown.ui
+        plugin/Shutdown/OS/LinuxExecShutdown.cpp
+        plugin/Shutdown/OS/LinuxExecShutdown.h
+#        plugin/Shutdown/OS/WindowsExecShutdown.cpp
+#        plugin/Shutdown/OS/WindowsExecShutdown.h
+        plugin/Shutdown/OS/FreeBSDExecShutdown.cpp
+        plugin/Shutdown/OS/FreeBSDExecShutdown.h
         plugin/Shutdown/OS/ShutdownForOSInterface.h
 )
 if (WIN32)
@@ -35,49 +40,48 @@ if (WIN32)
         plugin/Shutdown/OS/WindowsExecShutdown.cpp
         plugin/Shutdown/OS/WindowsExecShutdown.h
     )
-    add_compile_definitions(OS_WIN)
-elseif (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
-    list(APPEND PROJECT_SOURCES
-        plugin/Shutdown/OS/FreeBSDExecShutdown.cpp
-        plugin/Shutdown/OS/FreeBSDExecShutdown.h
-    )
-    add_compile_definitions(OS_FREEBSD)
-elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    list(APPEND PROJECT_SOURCES
-        plugin/Shutdown/OS/LinuxExecShutdown.cpp
-        plugin/Shutdown/OS/LinuxExecShutdown.h
-    )
-    add_compile_definitions(OS_LINUX)
-elseif (APPLE)
-    message(STATUS "Build for macOS - Placeholder for future implementation")
-    # 这里留给写 MacExecShutdown.mm
-    # list(APPEND PROJECT_SOURCES plugin/Shutdown/OS/MacExecShutdown.mm)
-    add_definitions(OS_MAC)
-else()
-    message(WARNING "Unknown OS: No shutdown implementation will be compiled.")
 endif ()
 
 qt_add_executable(emergit
         WIN32 MACOSX_BUNDLE
-#        app.qrc
+        app.qrc
+#        main.cpp
+#        Prologue.cpp
+#        Prologue.h
+#        BaseMultilingualWindow.cpp
+#        BaseMultilingualWindow.h
+#        BaseMultilingualWindow.ui
+#        OSymphonica.cpp
+#        OSymphonica.h
+#        OSymphonica.ui
+#        plugin/Shutdown/Shutdown.cpp
+#        plugin/Shutdown/Shutdown.h
+#        plugin/Shutdown/Shutdown.ui
+#        plugin/Shutdown/OS/LinuxExecShutdown.cpp
+#        plugin/Shutdown/OS/LinuxExecShutdown.h
+#        plugin/Shutdown/OS/WindowsExecShutdown.cpp
+#        plugin/Shutdown/OS/WindowsExecShutdown.h
+#        plugin/Shutdown/OS/FreeBSDExecShutdown.cpp
+#        plugin/Shutdown/OS/FreeBSDExecShutdown.h
+#        plugin/Shutdown/OS/ShutdownForOSInterface.h
         ${PROJECT_SOURCES}
 )
 
 
 # 定义一个变量包含所有 UI 相关文件
-#set(TS_SOURCES
-#    main.cpp
-#    Prologue.h Prologue.cpp
-#    BaseMultilingualWindow.h BaseMultilingualWindow.cpp BaseMultilingualWindow.ui
-#    OSymphonica.h OSymphonica.cpp OSymphonica.ui
-#        plugin/Shutdown/Shutdown.h
-#        plugin/Shutdown/Shutdown.cpp
-#        plugin/Shutdown/Shutdown.ui
-#)
+set(TS_SOURCES
+    main.cpp
+    Prologue.h Prologue.cpp
+    BaseMultilingualWindow.h BaseMultilingualWindow.cpp BaseMultilingualWindow.ui
+    OSymphonica.h OSymphonica.cpp OSymphonica.ui
+        plugin/Shutdown/Shutdown.h
+        plugin/Shutdown/Shutdown.cpp
+        plugin/Shutdown/Shutdown.ui
+)
 # 告诉 lupdate，源代码中 tr() 包裹的文本是 zh_CN (简体中文)。
 # 这样 lupdate 在生成 .ts 文件时，会将 zh_CN 的文本作为源文本。
 # 这是实现“tr包裹简中”的关键。
-set_property(SOURCE ${PROJECT_SOURCES}
+set_property(SOURCE ${TS_SOURCES}
         APPEND PROPERTY
         QT_TRANSLATION_SOURCE_LANGUAGE "zh_CN"
 )
@@ -95,7 +99,7 @@ target_link_libraries(emergit
     PRIVATE
         Qt::Core
         Qt::Widgets
-#        Qt6::DBus
+        Qt6::DBus
 )
 # 仅在 Windows 平台下链接系统 API 库
 if(WIN32)
@@ -104,20 +108,10 @@ if(WIN32)
             user32
             advapi32
     )
-elseif (APPLE)
-    # 预留 Mac 框架链接口子
-    # target_link_libraries(emergit PRIVATE "-framework IOKit")
-elseif (UNIX AND NOT APPLE)
-    # 仅在支持 DBus 的 Unix 系统链接
-    if(Qt6DBus_FOUND)
-        target_link_libraries(emergit PRIVATE Qt6::DBus)
-        target_compile_definitions(emergit PRIVATE USE_DBUS)
-    endif()
+target_include_directories(emergit PRIVATE
+        /usr/x86_64-w64-mingw32/include
+    )
 endif()
-
-#target_include_directories(emergit PRIVATE
-#        /usr/x86_64-w64-mingw32/include
-#    )
 
 
 include(GNUInstallDirs)

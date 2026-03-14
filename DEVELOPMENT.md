@@ -2,10 +2,11 @@
 
 1. [编译环境说明](#编译环境说明br-)
 2. [Windows下Clion的配置]()
-2. [窗体使用多语言](#窗体使用多语言-br-)
-2. [主窗口在Wayland多屏幕下的显示策略](#主窗口在wayland多屏幕下的显示策略br-)
-3. [集体设置属性（for-each）](#集体设置属性br-)
-4. [connect函数注意事项](#connect函数注意事项br-)
+3. [窗体使用多语言](#窗体使用多语言-br-)
+4. [主窗口在Wayland多屏幕下的显示策略](#主窗口在wayland多屏幕下的显示策略br-)
+5. [集体设置属性（for-each）](#集体设置属性br-)
+6. [connect函数注意事项](#connect函数注意事项br-)
+7. [XxExecShutdown-EmergitShutdownExecManager的单例模式、工厂模式](#xxexecshutdown-shutdownexecmanager的单例模式工厂模式)
 
 ---
 ## 编译环境说明<br />
@@ -27,6 +28,7 @@
 ### 其他说明
 * Windows也可以使用msvc，但是目前还没有经过测试
 * freeBSD请使用Clang，已经过测试
+* Mac OS暂时无法测试
 
 
 ---
@@ -114,4 +116,17 @@ for(auto* thing : things)
 ## connect函数注意事项<br />
 第三个参数使用this指针然后第四个参数捕获this用lambda可以防止内存泄漏和野指针导致的崩溃
 
+---
+
+## XxExecShutdown-EmergitShutdownExecManager的单例模式、工厂模式
+所有系统的关机执行都是放在单独的文件中，所以通过工厂模式制作统一管理器<br />
+XxExecShutdown这个类是只能创建一次实例，禁止拷贝，以后每次调用都是调用那个static的实例<br />
+使用这个类的方法：ShutdownExecManager.schedulePowerOffWithSinglyParaSEC(60);
+和ShutdownExecManager.cancelShutdownWithoutPara();<br />
+这里两句话都是同一个实例<br />
+创建一个对应系统的类，需要继承ShutdownForOSInterface这个接口，这个接口继承了QObject.<br />
+目前有FreeBSD的ExecShutdown较为特殊，
+需要先FreeBSDExecShutdown::instance().initShutdownPointerWithSinglyShutdownPointerOfItself(this);
+才能正常使用其他功能<br />
+至于Emergit这个前缀，是为了防止污染宏定义.
 ---
