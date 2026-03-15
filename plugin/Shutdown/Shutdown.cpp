@@ -77,6 +77,8 @@ void Shutdown::lcdSettings() const
     for(auto* lcd : lcds)
     {
         lcd->setFrameStyle(QFrame::NoFrame);
+        lcd->setDigitCount(2);
+        lcd->display(QString("00"));
     }
 }
 
@@ -99,14 +101,34 @@ void Shutdown::dialSettings() const
 void Shutdown::connectDialToLcd() const
 {
     //对旋钮和LCD显示做连接
-    connect(ui->dialSecond,&QDial::valueChanged,
-        ui->lcdSecond,qOverload<int>(&QLCDNumber::display));
-    connect(ui->dialMinute,&QDial::valueChanged,
-        ui->lcdMinute,qOverload<int>(&QLCDNumber::display));
-    connect(ui->dialHour,&QDial::valueChanged,
-        ui->lcdHour,qOverload<int>(&QLCDNumber::display));
+    // connect(ui->dialSecond,&QDial::valueChanged,
+    //     ui->lcdSecond,qOverload<int>(&QLCDNumber::display));
     connect(ui->dialDay,&QDial::valueChanged,
-        ui->lcdDay,qOverload<int>(&QLCDNumber::display));
+        this,[this]() {
+            ui->lcdDay->display(QString("%1")
+                .arg(ui->dialDay->value(),2,10,QChar('0')));
+        });
+    connect(ui->dialHour,&QDial::valueChanged,
+        this,[this]() {
+            ui->lcdHour->display(QString("%1")
+                .arg(ui->dialHour->value(),2,10,QChar('0')));
+        });
+    connect(ui->dialMinute,&QDial::valueChanged,
+        this,[this]() {
+            ui->lcdMinute->display(QString("%1")
+                .arg(ui->dialMinute->value(),2,10,QChar('0')));
+        });
+    connect(ui->dialSecond,&QDial::valueChanged,
+        this,[this]() {
+            ui->lcdSecond->display(QString("%1")
+                .arg(ui->dialSecond->value(),2,10,QChar('0')));
+        });
+    // connect(ui->dialMinute,&QDial::valueChanged,
+    //     ui->lcdMinute,qOverload<int>(&QLCDNumber::display));
+    // connect(ui->dialHour,&QDial::valueChanged,
+    //     ui->lcdHour,qOverload<int>(&QLCDNumber::display));
+    // connect(ui->dialDay,&QDial::valueChanged,
+    //     ui->lcdDay,qOverload<int>(&QLCDNumber::display));
 }
 
 void Shutdown::connectMenuBar()
@@ -258,14 +280,18 @@ void Shutdown::perSecondTimeoutToChangeUI()
     {
         timeSEC--;
 
-        const int d = static_cast<int>(timeSEC / (24 * 3600));
-        const int h = static_cast<int>(timeSEC % (24 * 3600)) / 3600;
-        const int m = static_cast<int>(timeSEC % 3600) / 60;
-        const int s = static_cast<int>(timeSEC % 60);
-        ui->dialDay->setValue(d);
-        ui->dialHour->setValue(h);
-        ui->dialMinute->setValue(m);
-        ui->dialSecond->setValue(s);
+        const auto d = timeSEC / (24 * 3600);
+        const auto h = timeSEC % (24 * 3600) / 3600;
+        const auto m = timeSEC % 3600 / 60;
+        const auto s = timeSEC % 60;
+        ui->lcdDay->display(QString("%1").arg(d,2,10,QChar('0')));
+        ui->lcdHour->display(QString("%1").arg(h,2,10,QChar('0')));
+        ui->lcdMinute->display(QString("%1").arg(m,2,10,QChar('0')));
+        ui->lcdSecond->display(QString("%1").arg(s,2,10,QChar('0')));
+        // ui->dialDay->setValue(d);
+        // ui->dialHour->setValue(h);
+        // ui->dialMinute->setValue(m);
+        // ui->dialSecond->setValue(s);
     }
     else
     {
@@ -307,8 +333,8 @@ void Shutdown::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event); // 先调用基类处理
 
-    // 根据窗口宽度计算一个比例（比如窗口宽度的 5%）
-    const int newFontSize = this->width() / 20;
+    // 根据窗口宽度计算一个比例（比如小于窗口宽度的 5%）
+    const int newFontSize = this->width() / 15;
     auto labels = this->findChildren<QLabel*>();
     for(auto* label : labels)
     {

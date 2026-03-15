@@ -9,6 +9,7 @@
 
 //前向声明
 class Shutdown;
+class QTimer;
 
 class FreeBSDExecShutdown
 	:ShutdownForOSInterface{
