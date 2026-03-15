@@ -1,3 +1,13 @@
+## [2026-03-15] - 0.1.1.7
+###  更新内容
+* FreeBSD的关机逻辑进行了大的修改
+* FreeBSD的关机类把计时器和shell内容都写成了类变量
+* FreeBSD的关机类加入了析构函数
+* Shutdown类重写了closeEvent(QCloseEvent *event)
+* Shutdown类提供了操控窗口是否可以被关闭的public函数
+* 三种系统ExecShutdown在定时关机触发之前都加了取消关机防止出问题
+
+---
 ## [2026-03-14] - 0.1.1.6
 ###  更新内容
 * 修改了CMake，适配msvc

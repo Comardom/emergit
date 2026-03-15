@@ -22,6 +22,7 @@
 #include <QTimer>
 #include <QPushButton>
 #include <QWidget>
+#include <QMessageBox>
 
 #include "OS/FreeBSDExecShutdown.h"
 
@@ -43,6 +44,7 @@ Shutdown::Shutdown(QWidget *parent)
     : BaseMultilingualWindow(parent)
     , ui(new Ui::Shutdown)
     , timerCountdown(new QTimer(this))
+    , canCloseItself(true)
 {
     //Qt UI类必要代码
     ui->setupUi(this);
@@ -219,9 +221,6 @@ void Shutdown::changeDaysLimit()
 
 void Shutdown::executeSystemShutdown(const qint64 fullSecondsToWait, const bool cancel)
 {
-    // qDebug()<<"return!";
-    // return;
-    // qDebug()<<"debug中，正常看不到";
 // TODO : 要加入临时文件存储是否正在定时关机，以便于关闭程序后再打开还能检测到，还要加入每半个小时进行一次时间校准
 #if defined(Q_OS_WIN)
     cancel
@@ -280,6 +279,28 @@ void Shutdown::perSecondTimeoutToChangeUI()
 qint64 Shutdown::getUiDialSecondValueInSEC() const
 {
     return ui->dialSecond->value();
+}
+
+void Shutdown::setCanCloseItself(const bool aBool)
+{
+    canCloseItself = aBool;
+}
+
+void Shutdown::closeEvent(QCloseEvent *event)
+{
+    if (canCloseItself)
+    {
+        // 如果允许关闭，接受事件，窗口正常关闭
+        event->accept();
+    }
+    else
+    {
+        // 如果不允许关闭，忽略事件
+        event->ignore();
+        qDebug() << "现在处于定时任务保护期，禁止关闭窗口！";
+        QMessageBox::warning(this, "操作受限",
+            "受系统限制，请在开始设定时的第一圈秒数走完之后再关闭窗口。或者您可以取消关机任务再关闭窗口。");
+    }
 }
 
 void Shutdown::resizeEvent(QResizeEvent *event)

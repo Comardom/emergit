@@ -24,6 +24,7 @@ WindowsExecShutdown::WindowsExecShutdown()
 
 void WindowsExecShutdown::schedulePowerOffWithSinglyParaSEC(const qint64 fullSecondsToWait)
 {
+	cancelShutdownWithoutPara();
 	if (!SetShutdownPrivilege())
 	{
 		qCritical() << "权限提升失败！请尝试以管理员身份运行";

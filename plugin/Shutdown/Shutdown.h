@@ -25,10 +25,12 @@ public:
     explicit Shutdown(QWidget *parent = nullptr);
     ~Shutdown() override;
     [[nodiscard]] qint64 getUiDialSecondValueInSEC() const;
+    void setCanCloseItself(bool aBool);
 
 protected:
     void changeEvent(QEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
     void changeDaysLimit();
@@ -36,6 +38,7 @@ private slots:
     void setTimerShot(bool cancel = false);
 
 private:
+    bool canCloseItself;
     Ui::Shutdown *ui;
     QTimer *timerCountdown;
     qint64 timeSEC{};

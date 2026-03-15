@@ -26,6 +26,7 @@ LinuxExecShutdown::LinuxExecShutdown()
 
 void LinuxExecShutdown::schedulePowerOffWithSinglyParaSEC(const qint64 fullSecondsToWait)
 {
+	cancelShutdownWithoutPara();
 	//建立 DBus 接口连接 (系统总线)
 	QDBusInterface manager(
 		"org.freedesktop.login1",

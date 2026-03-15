@@ -53,3 +53,13 @@
 // 			tr("无法执行关机命令"));
 // 	} // 关机操作必须异步/分离执行
 // }
+
+
+// freebsd:
+// QString cmd = QString("echo \"/sbin/shutdown -p now\" | at %1").arg(timeStr);
+	// QTimer::singleShot((shutdown->getUiDialSecondValueInSEC()*1000),Qt::PreciseTimer,
+	// 		this,[cmd]() {
+	// 			QProcess::execute("sh", {"-c", cmd});
+	// 		});
+//取消
+// QProcess::execute("atrm", {"all"});

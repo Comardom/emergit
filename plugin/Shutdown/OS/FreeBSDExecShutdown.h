@@ -23,6 +23,8 @@ public:
 	void cancelShutdownWithoutPara() override;
 	void initShutdownPointerWithSinglyShutdownPointerOfItself(Shutdown *shutdown);
 
+	~FreeBSDExecShutdown() override;
+
 	// 禁用拷贝，防止产生第二个实例
 	FreeBSDExecShutdown(const FreeBSDExecShutdown&) = delete;
 	void operator=(const FreeBSDExecShutdown&) = delete;
@@ -30,6 +32,9 @@ private:
 	// 【修改】构造函数变私有，且不再带参数
 	// 这样别人就不能随便 FreeBSDExecShutdown obj(...) 了
 	FreeBSDExecShutdown();
+	QTimer *timer;
+	QStringList arguments;
+	QString program;
 };
 
 
